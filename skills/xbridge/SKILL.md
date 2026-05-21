@@ -7,6 +7,14 @@ description: "Use when working with Xcode projects — building, testing, readin
 
 This skill enables AI agents to interact with Xcode projects. The preferred method is the **xbridge CLI**, which works without per-session permission dialogs. The Xcode MCP bridge (`xcrun mcpbridge`) is supported as a manual fallback but requires approving a dialog in Xcode at the start of every new session.
 
+> **Xcode must be running.** xbridge communicates with Xcode directly — if Xcode is not open with a project loaded, every command will fail. Before proceeding, confirm Xcode is running and a project is open. If it's not, open it:
+>
+> ```bash
+> open -a Xcode          # opens Xcode without a project
+> open MyApp.xcodeproj   # opens a specific project
+> open MyApp.xcworkspace # opens a workspace
+> ```
+
 ## Step 1: Check for xbridge
 
 Before attempting any Xcode task, run:
@@ -23,7 +31,13 @@ xbridge status
 
 If the output indicates the bridge is not running, tell the user:
 
-> **The Xcode MCP bridge isn't running.** Please make sure Xcode is open with a project, then run:
+> **The Xcode MCP bridge isn't running.** Open Xcode with your project first:
+>
+> ```bash
+> open MyApp.xcodeproj   # or .xcworkspace
+> ```
+>
+> Then restart the bridge:
 >
 > ```
 > xbridge restart
