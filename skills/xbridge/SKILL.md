@@ -14,6 +14,18 @@ This skill enables AI agents to interact with Xcode projects. The preferred meth
 > open MyApp.xcodeproj   # opens a specific project
 > open MyApp.xcworkspace # opens a workspace
 > ```
+>
+> Sometimes the Xcode app is not called Xcode.app, but rather a versioned name like Xcode-26.0.app. List all Xcode apps with:
+>
+> ```bash
+> ls /Applications/Xcode*.app
+> ```
+>
+> If the bridge is not running, restart it:
+>
+> ```bash
+> xbridge restart
+> ```
 
 ## Step 1: Check for xbridge
 
