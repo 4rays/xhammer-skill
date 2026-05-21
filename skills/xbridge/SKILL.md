@@ -5,7 +5,7 @@ description: "Use when working with Xcode projects — building, testing, readin
 
 # xbridge Skill
 
-This skill enables AI agents to interact with Xcode projects. The preferred method is the **xbridge CLI**, which works without per-session permission dialogs. The Xcode MCP bridge (`xcrun mcpbridge`) is supported as a manual fallback but requires approving a dialog in Xcode at the start of every new session.
+This skill enables AI agents to interact with Xcode projects via the **xbridge CLI**.
 
 > **Xcode must be running.** xbridge communicates with Xcode directly — if Xcode is not open with a project loaded, every command will fail. Before proceeding, confirm Xcode is running and a project is open. If it's not, open it:
 >
@@ -61,15 +61,9 @@ Wait for the user to confirm before continuing.
 
 If found and bridge is running, skip to [Using xbridge](#using-xbridge).
 
-If not found, ask the user:
+If not found, tell the user xbridge is not installed and proceed to [Install xbridge](#install-xbridge).
 
-> **xbridge is not installed. How would you like to connect to Xcode?**
->
-> **Option A (recommended):** Install xbridge via Homebrew — no per-session dialogs, full CLI access.
->
-> **Option B:** Set up the Xcode MCP bridge manually — requires approving a permission dialog in Xcode at the start of every Claude Code session.
-
-## Option A: Install xbridge
+## Install xbridge
 
 ```bash
 brew tap 4rays/tap
@@ -85,34 +79,6 @@ xbridge status
 Enable Xcode MCP: open **Xcode > Settings** (⌘,) → **Intelligence** → enable **Xcode Tools** under Model Context Protocol.
 
 Then open your project in Xcode and proceed to [Using xbridge](#using-xbridge).
-
-## Option B: Xcode MCP Bridge (manual setup)
-
-### 1. Enable Xcode MCP in Settings
-
-1. Open **Xcode > Settings** (⌘,)
-2. Select **Intelligence** in the sidebar
-3. Under **Model Context Protocol**, toggle **Xcode Tools** ON
-
-### 2. Add the server to Claude Code
-
-```bash
-claude mcp add --transport stdio xcode -- xcrun mcpbridge
-claude mcp list
-```
-
-### 3. For Codex
-
-```bash
-codex mcp add xcode -- xcrun mcpbridge
-codex mcp list
-```
-
-### 4. Grant permission
-
-When the client first connects, Xcode shows a permission dialog — click **Allow**. This dialog reappears every new session.
-
-MCP tools available: `XcodeRead`, `XcodeWrite`, `XcodeUpdate`, `XcodeGlob`, `XcodeGrep`, `XcodeLS`, `XcodeMakeDir`, `XcodeRM`, `XcodeMV`, `XcodeListWindows`, `XcodeListNavigatorIssues`, `XcodeRefreshCodeIssuesInFile`, `BuildProject`, `GetBuildLog`, `RunAllTests`, `RunSomeTests`, `GetTestList`, `ExecuteSnippet`, `RenderPreview`, `DocumentationSearch`.
 
 ## Using xbridge
 
